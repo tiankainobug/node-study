@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滚动渐变导航栏</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">logo</a>
+        <ul>
+            <li><a href="#">探索车型</a></li>
+            <li><a href="#">官方商城</a></li>
+            <li><a href="#">车主服务</a></li>
+            <li><a href="#">科技创新</a></li>
+            <li><a href="#">奔驰天下</a></li>
+            <li><a href="#">预约品鉴</a></li>
+        </ul>
+    </header>
+    <div class="banner1"></div>
+    <div class="banner2"></div>
+    <script>
+        window.addEventListener("scroll",()=>{
+            let header = document.querySelector("header");
+            header.classList.toggle("sticky",window.scrollY>0);
+        })
+    </script>
+</body>
+</html>
