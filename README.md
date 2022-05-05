@@ -162,9 +162,9 @@ console.log(fext) // 输出 .html
 ### 创建web服务器的基本步骤
 
 1. 导入http模块
-    1. const http = require('http')
+   1. const http = require('http')
 2. 创建web服务器实例
-    1. const server = http.createServer()
+   1. const server = http.createServer()
 3. 为服务器实例绑定request事件，监听客户端请求
 ```javascript
 // 使用服务器实例的 .on()方法
@@ -175,13 +175,13 @@ server.on('request',(req,res)=>{
 `其中`：
 
 1. req
-    1. req是请求对象，它包含了与客户端相关的数据和属性
-    1. req.url 是客户端请求的url地址
-    1. req.method是客户端的method请求类型
+   1. req是请求对象，它包含了与客户端相关的数据和属性
+   1. req.url 是客户端请求的url地址
+   1. req.method是客户端的method请求类型
 2. res
-    1. res是响应对象
-    1. res.end(),向客户端发送指定内容
-    1. res.setHeader('Content-Type',"text/html; charset=utf-8")   防止响应内容`中文乱码`
+   1. res是响应对象
+   1. res.end(),向客户端发送指定内容
+   1. res.setHeader('Content-Type',"text/html; charset=utf-8")   防止响应内容`中文乱码`
 4. 启动服务器
 ```javascript
 server.listen(80,()=>{
@@ -244,11 +244,11 @@ server.listen(8081,()=>{
 ## 分类
 
 1. 内置模块
-    1. 由nodejs官方提供的，例如fs、path、http
+   1. 由nodejs官方提供的，例如fs、path、http
 2. 自定义模块
-    1. 用户自己创建的js文件，都是自定义模块
+   1. 用户自己创建的js文件，都是自定义模块
 3. 第三方模块
-    1. 由第三方开发出来的模块，使用前需要先下载
+   1. 由第三方开发出来的模块，使用前需要先下载
 ## 加载模块
 使用`require`方法
 ```javascript
@@ -421,9 +421,9 @@ npm install 如果提供了`-g`参数，则会把包安装为全局包。
 
 1. 新建 my 文件夹，作为包的根目录
 1. 在 my 文件夹中，新建如下三个文件：
-    1. package.json
-    1. index.js
-    1. README.md
+   1. package.json
+   1. index.js
+   1. README.md
 ### 初始化package.json
 ```json
 {
@@ -456,15 +456,15 @@ README.md，包的使用说明文档。
 ### 发布包
 
 1. 注册npm账号
-    1. [https://www.npmjs.com/](https://www.npmjs.com/)
+   1. [https://www.npmjs.com/](https://www.npmjs.com/)
 2. 登录npm账号
-    1. 在终端里面输入`npm login`
-    1. 输入 账号密码邮箱后，即可登录成功。
-    1. **注意**：执行命令之前，必须先把包源切换为npm官方服务器
+   1. 在终端里面输入`npm login`
+   1. 输入 账号密码邮箱后，即可登录成功。
+   1. **注意**：执行命令之前，必须先把包源切换为npm官方服务器
 3. 发布
-    1. 切换到包的根目录
-    1. 终端里输入`npm publish`
-    1. **注意：**包名不能重复
+   1. 切换到包的根目录
+   1. 终端里输入`npm publish`
+   1. **注意：**包名不能重复
 ### 删除已发布的包
 ```bash
 npm unpublish 包名 --force
@@ -502,7 +502,7 @@ express是基于http模块疯转出来的。
 ## express能够做什么
 
 1. 前端程序员：
-    1. 方便、快速的创建web网站的服务器或者api接口的服务器
+   1. 方便、快速的创建web网站的服务器或者api接口的服务器
 ## 安装
 在根目录中，运行终端命令
 ```bash
@@ -576,3 +576,40 @@ app.get('/home/:id',(req,res)=>{
 1. url也可以是这种格式`/user/:id/:key`，也就是说可以有多个层级，返回的数据类型为`{"id": "77","key": "tiankai"}`
 ## 托管静态资源
 express.static()函数，通过它，可以方便的创建一个静态资源服务器。可以将图片、css文件、JS文件对外开放。
+代码示例：
+```javascript
+// 导入express模块
+const express = require('express')
+const path = require("path");
+// 创建web服务器
+const app = express()
+// 监听80端口
+app.listen(80,()=>{
+    console.log(path.join(__dirname,'/anli'))
+    console.log('express server is running at http://127.0.0.1')
+})
+app.get('/',(req,res)=>{
+    res.send('hello')
+})
+// 调用app.static对外提供静态资源 路径最好是使用path模块拼接一个绝对路径，否则可能加载不出来
+app.use(express.static(path.join(__dirname,'/anli')))
+
+```
+游览器窗口输入`http://127.0.0.1/index.html`即可访问`./anli`目录下的index.html文件。css、图片文件同理。
+### 托管多个静态资源
+```javascript
+app.use(express.static(path.join(__dirname,'/anli')))
+app.use(express.static(path.join(__dirname,'/anli2')))
+// 直接加载两个即可
+```
+### 挂载路径前缀
+```javascript
+app.user('/anli',express.static(path.join(__dirname,'/anli')))
+```
+现在你如果想访问anli下的index.html，那么需要输入的地址为：`http://127.0.0.1/anli/index.html`
+## nodemon
+能够监听项目文件的变动，当代码被修改后，nodemon会自动帮我们重启项目。
+### 安装nodemon
+```shell
+npm install nodemon -g
+```
